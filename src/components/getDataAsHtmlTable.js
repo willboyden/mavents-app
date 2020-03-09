@@ -63,7 +63,7 @@ function useFetchWithParameters(params = "GetStubHubCityVenues") {
   return useFetch(query + params, {});
 }
 
-export function Example() {
+export function HtmlTable() {
   const [params, setParams] = useState("");
   const result = useFetchWithParameters(params);
   //var header = ;

@@ -27,11 +27,7 @@ export default function EventCalendar(props) {
       fetch(`http://localhost:4000/api/events/${props.venue.name}/`)
         .then(response => response.json())
         .then(res => {
-          //  console.log(books);
-          console.log(res);
-          //setVenueData(res);
-          // setVenueData(res);
-
+          //console.log(res);
           setVenueData(
             res.map((x, i) => ({
               id: x["Event Name"] + i.toString(),
@@ -41,8 +37,7 @@ export default function EventCalendar(props) {
             }))
           );
         });
-      console.log(venueData);
-      //return x;
+      // console.log(venueData);
     }
   }, [props]);
 

@@ -1,22 +1,28 @@
 import useSWR from "swr";
-import React, { useState } from "react";
+import React from "react";
 import { Map, Marker, Popup, TileLayer, Circle } from "react-leaflet";
 
 // import { Icon, Circle } from "leaflet";
 
 export default function MaMap(props) {
+  //leaving this here for now, would be nice to move any data fetching out of rendering functions if possible
   const fetcher = (...args) => fetch(...args).then(response => response.json());
   const domain = "http://localhost:4000/api/";
   const { data, error } = useSWR(domain + "cityVenues/", fetcher);
 
-  const [activeVenue, setActiveVenue] = useState({
-    name: "Big Night Live",
-    dataSource: "multi"
-  });
-
   const datums = data && !error ? data : [];
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
+
+  const col = x => {
+    if (x.dataSource == "ticketmaster") {
+      return "RoyalBlue";
+    } else if (x.dataSource == "stubhub") {
+      return "DarkOrange";
+    } else {
+      return "purple";
+    }
+  };
 
   return (
     <Map center={[41.98, -71.3824]} zoom={8}>
@@ -48,24 +54,8 @@ export default function MaMap(props) {
             <Circle
               key={datum.name}
               center={[datum.latitude, datum.longitude]}
-              fillColor={() => {
-                if (datum.dataSource == "ticketmaster") {
-                  return "RoyalBlue";
-                } else if (datum.dataSource == "stubhub") {
-                  return "DarkOrange";
-                } else {
-                  return "purple";
-                }
-              }}
-              color={() => {
-                if (datum.dataSource == "ticketmaster") {
-                  return "RoyalBlue";
-                } else if (datum.dataSource == "stubhub") {
-                  return "DarkOrange";
-                } else {
-                  return "purple";
-                }
-              }}
+              fillColor={col(datum)}
+              color={col(datum)}
               radius={500}
               fillOpacity={0.5}
             />
