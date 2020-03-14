@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default async function useFetch(url, defaultData) {
-  const [data, updateData] = useState(data);
+  const [data, updateData] = useState();
   //console.log(data);
   useEffect(() => {
     async function fetchData() {
@@ -29,9 +29,12 @@ export default async function useFetch(url, defaultData) {
   return data;
 }
 
-function useFetchWithParameters(params = "Big Night Live") {
-  const query = "http://localhost:4000/api/ticketmasterEvents/";
-  return useFetch(query + params, {});
+async function useFetchWithParameters(params = "") {
+  //const query = "http://localhost:4000/api/ticketmasterEvents/";
+
+  //const query = "";
+
+  return await useFetch(params, {});
 }
 
 function getKeys(result) {

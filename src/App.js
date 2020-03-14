@@ -1,48 +1,76 @@
 import React, { useState } from "react";
 import MaMap from "./components/maMap";
+import { useRoutes, A } from "hookrouter";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import EventCalender from "./components/eventCalendar";
-
+import "./StyleSheets/navBar.css";
+import EventFinder from "./components/EventFinder";
+import EventCalendar from "./components/eventCalendar";
+import Home from "./components/Home";
+import Technology from "./components/Technology";
+import CommingSoon from "./components/CommingSoon";
+import Contact from "./components/Contact";
 //import "./main.scss"; // webpack must be configured to do this
 
 export default function App() {
+  //1 react hook with method to set data and var to hold data
   const [venue, setVenue] = useState({
     name: "Big Night Live",
     dataSource: "ticketmaster"
   });
 
+  const [dateParam, setDateParam] = useState({});
+  const [sidenavWidth, SetSidenavWidth] = useState("250px");
+  const [mainMarginLeft, SetMainMrginLeft] = useState("250px");
+
+  function openNav() {
+    SetSidenavWidth("250px");
+    SetMainMrginLeft("250px");
+  }
+  function closeNav() {
+    SetSidenavWidth("0px");
+    SetMainMrginLeft("0px");
+  }
+
+  function navClick() {
+    console.log("clicked");
+    sidenavWidth == "250px" ? closeNav() : openNav();
+  }
+
+  const routes = {
+    "/": () => <Home />,
+    "/eventfinder": () => <EventFinder />,
+    "/eventcalendar": () => <EventCalendar venue={venue} />,
+    "/venuemap": () => <MaMap />,
+    "/technology": () => <Technology />,
+    "/contact": () => <Contact />,
+    "/comingsoon": () => <CommingSoon />
+  };
+  const routeResult = useRoutes(routes);
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12">
-          <div className="row">
-            <div className="col-9">
-              <h3 id="pageTitle">
-                <span id="venueCount"></span>
-                Venues with Events Listed in Massachusetts
-              </h3>
-              <button id="btnResetTblCityCounts">Reset Map</button>
-              <button id="btnStubhubFilter">Stub Hub</button>
-              <button id="btnTicketMasterFilter">Ticket Master</button>
-            </div>
-            <div className="col-3"></div>
-          </div>
+    <div>
+      <div id="mySidenav" className="sidenav" style={{ width: sidenavWidth }}>
+        <a className="closebtn" onClick={navClick}>
+          &times;
+        </a>
+        <A href="/">Home</A>
+        <A href="/eventfinder">Event Finder</A>
+        <A href="/eventcalendar">Event Calendar</A>
+        <A href="/venuemap">Venue Map</A>
+        <A href="/technology">Technology</A>
+        <A href="/contact">Contact</A>
+        <A href="/commingsoon">Comming Soon</A>
+      </div>
 
-          <div className="row">
-            <div className="col-9">
-              <MaMap action={venue => setVenue(venue)}></MaMap>
-            </div>
-            <div className="col-3"></div>
-          </div>
-
-          <div className="row">
-            <div className="col-9">
-              <EventCalender venue={venue} />
-            </div>
-            <div className="col-3"></div>
-          </div>
-        </div>
+      <div
+        id="main"
+        className="container"
+        style={{ marginLeft: mainMarginLeft }}
+      >
+        <span style={{ cursor: "pointer" }} onClick={navClick}>
+          &#9776;
+        </span>
+        <div className="row">{routeResult}</div>
       </div>
     </div>
   );
