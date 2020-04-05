@@ -9,6 +9,12 @@ export default function Technology() {
         </p>
         <p className="c8">
           <h2 className="c7 c4">Data Collection</h2>
+          <a
+            href="https://github.com/willboyden/ticketDataCollection"
+            target="_blank"
+          >
+            github
+          </a>
         </p>
         <ul className="c3 lst-kix_gyzx9pg5k5m-0 start">
           <li className="c2">
@@ -81,6 +87,12 @@ export default function Technology() {
           <span className="c7 c4">
             &nbsp; &nbsp; <b>Past</b>{" "}
           </span>
+          <a
+            href="https://github.com/willboyden/concertTicketWebCore"
+            target="_blank"
+          >
+            github
+          </a>
         </p>
         <p className="c8">
           <span className="c4">
@@ -112,6 +124,12 @@ export default function Technology() {
 
         <ul className="c3 lst-kix_x9qnrmiz1czb-0">
           <h6>that Backend </h6>
+          <a
+            href="https://github.com/willboyden/ticket-express"
+            target="_blank"
+          >
+            github
+          </a>
         </ul>
 
         <ul className="c3 lst-kix_x9qnrmiz1czb-1 start">
@@ -136,6 +154,9 @@ export default function Technology() {
         </ul>
         <ul className="c3 lst-kix_x9qnrmiz1czb-0">
           <h6>Frontside </h6>
+          <a href="https://github.com/willboyden/mavents-app" target="_blank">
+            github
+          </a>
         </ul>
         <ul className="c3 lst-kix_x9qnrmiz1czb-1 start">
           <li className="c5">

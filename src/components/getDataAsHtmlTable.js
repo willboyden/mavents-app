@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+require("dotenv").config();
 
 function useFetch(url, defaultData) {
   const [data, updateData] = useState(defaultData);
@@ -38,12 +39,20 @@ function getKeys(result) {
 }
 function getHeader(objKeys) {
   if (objKeys != {} && objKeys.length > 1) {
-    return objKeys.map(x => <th key={"th" + x}>{x}</th>);
+    return (
+      <tr>
+        {objKeys.map(x => {
+          // console.log(x);
+          return <th key={x}>{x}</th>;
+        })}
+      </tr>
+    );
   }
 }
+
 const RenderRow = props => {
   return props.keys.map((key, index) => {
-    return <td key={props.data[key]}>{props.data[key]}</td>;
+    return <td key={props.data[key] + index.toString()}>{props.data[key]}</td>;
   });
 };
 function getRowsData(data, keys) {
@@ -58,22 +67,27 @@ function getRowsData(data, keys) {
   }
 }
 
-function useFetchWithParameters(params = "GetStubHubCityVenues") {
-  const query = "https://localhost:44350/api/testapi/";
-  return useFetch(query + params, {});
-}
+//example of url to pass in"/api/cityvenues/"
+//this function should recieve either a url param or data NOT BOTH
+export default function HtmlTable(props) {
+  const [result, setResult] = useState({});
 
-export function HtmlTable() {
-  const [params, setParams] = useState("");
-  const result = useFetchWithParameters(params);
-  //var header = ;
-  //getKeys(result);
-  //console.log(["result", result[0].keys()]);
+  const getResult = () => {
+    if (typeof props.url != "undefined") {
+      return useFetch(process.env.domain + props.url, {});
+    } else if (typeof props.data != "undefined") {
+      return props.data;
+    }
+  };
+
+  useEffect(() => {
+    setResult(getResult());
+  });
+
+  // console.log(["result", result]);
 
   const objKeys = getKeys(result);
-
   const header = getHeader(objKeys);
-
   const rows = getRowsData(result, objKeys);
 
   return (
@@ -83,12 +97,12 @@ export function HtmlTable() {
         <tbody>{rows}</tbody>
       </table>
 
-      <input
+      {/* <input
         type="input"
         value={params}
         onChange={evt => setParams(evt.target.value)}
-      />
-      {JSON.stringify(result)}
+      /> */}
+      {/* {JSON.stringify(result)} */}
     </div>
   );
 }
