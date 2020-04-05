@@ -19,9 +19,13 @@ node_modules
 
 npm-debug.log*
 yarn-debug.log*
+<<<<<<< HEAD
 yarn-error.log*
 
 .env
 .config
 
 .vscode
+=======
+yarn-error.log*
+>>>>>>> 8e76338e1de070446dd68a1885fe04b9fc36da99
