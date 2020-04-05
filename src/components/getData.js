@@ -30,10 +30,7 @@ export default async function useFetch(url, defaultData) {
 }
 
 async function useFetchWithParameters(params = "") {
-  //const query = "http://localhost:4000/api/ticketmasterEvents/";
-
   //const query = "";
-
   return await useFetch(params, {});
 }
 
